@@ -5,4 +5,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Deploiement du projet"
+      - run: echo "Déploiement du projet"
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloner le projet
+        uses: actions/checkout@v4
+      - name: version de Java
+        uses: action/setup-java@
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+        name: générer le livrable
+        run: |
+            ls -al
+            ./mvnw clean-package spring-boot:repackage -Dmaven.test.skip=true
+            ls -al target
